@@ -1,3 +1,9 @@
+// two major changes:
+
+// The element that is clicked should be the last one to fade out (but only by a little!)
+
+// All other elements should fade out within a small range of each other and not at exactly the same time
+
 /****************************** DON'T ALTER ******************************/
 function fadeOut(el) {
   el.classList.add("fade-up-out")
@@ -27,24 +33,34 @@ function transitionPage(el, groupOut, groupIn) {
 
 function delayedFadeOut(div, range) {
   // Your solution here
-  fadeOut(div)
+  setTimeout(() => {
+    fadeOut(div)
+  }, range)
 }
 
 function delayedFadeIn(div, range) {
   // Your solution here
-  fadeIn(div)
+  setTimeout(() => {
+    fadeIn(div)
+  }, range)
 }
 
 function fadeAllOut(el, group) {
   // Your solution here
+  let counter = 0;
   group.forEach(div => {
-    delayedFadeOut(div)
+    if (el===div) {
+      delayedFadeOut(div, LONGRANGE)
+    } else {
+      delayedFadeOut(div, SHORTRANGE+counter)
+    }
+    counter+=200;
   })
 }
 
 function fadeAllIn(group) {
   // Your solution here
   group.forEach(div => {
-    delayedFadeIn(div)
+    delayedFadeIn(div, LONGESTPOSSIBLE)
   })
 }
